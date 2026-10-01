@@ -24,3 +24,17 @@
 .overlay-logo strong{font-size:clamp(32px,2.55vw,48px)}
 .bottom-brand strong{font-size:clamp(32px,2.55vw,48px)}
 @media(max-width:900px){.site-header,.site-header.scrolled{height:105px}.wordmark strong,.overlay-logo strong{font-size:clamp(30px,6vw,40px)}.wordmark span{font-size:clamp(6px,1.35vw,8px);letter-spacing:.42em;padding-left:.42em;margin-top:9px}}
+
+/* Fix duplicate hero masthead: header wordmark is now the sole logo */
+.hero:before,.hero:after{content:none!important;display:none!important}
+
+/* Match reference masthead scale and prevent subtitle collisions */
+.site-header .wordmark{width:max-content;max-width:62vw}
+.site-header .wordmark strong{display:block;white-space:nowrap}
+.site-header .wordmark span{display:block;white-space:nowrap}
+
+/* Tighten footer bottom spacing */
+footer{padding-bottom:0}
+.black-stage{padding-bottom:14px}
+footer div{margin-bottom:0}
+@media(max-width:560px){.black-stage{padding-bottom:10px}footer{padding-bottom:0}}

@@ -43,3 +43,10 @@ footer div{margin-bottom:0}
 .black-stage{min-height:0!important;height:auto!important;padding-bottom:24px!important}
 footer{padding:28px 20px 0!important;margin:0!important}
 footer div{margin-bottom:0!important}
+
+/* Slimmer sticky navigation */
+.site-header,.site-header.scrolled{height:112px}
+.site-header .wordmark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.site-header .menu-trigger{top:50%;transform:translateY(-50%)}
+@media(max-width:900px){.site-header,.site-header.scrolled{height:88px}}
+@media(max-width:560px){.site-header,.site-header.scrolled{height:82px}}

@@ -38,3 +38,8 @@ footer{padding-bottom:0}
 .black-stage{padding-bottom:14px}
 footer div{margin-bottom:0}
 @media(max-width:560px){.black-stage{padding-bottom:10px}footer{padding-bottom:0}}
+
+/* Let the footer define the natural end of the page */
+.black-stage{min-height:0!important;height:auto!important;padding-bottom:24px!important}
+footer{padding:28px 20px 0!important;margin:0!important}
+footer div{margin-bottom:0!important}

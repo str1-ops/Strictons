@@ -100,3 +100,47 @@ footer div{margin-bottom:0!important}
   .menu-overlay,.menu-overlay.open,.menu-overlay:not(.open){transition:none}
   .menu-overlay.open::after{animation:none;opacity:.18}
 }
+
+/* Menu panel moves behind a stationary header */
+.site-header{z-index:120}
+.menu-overlay{z-index:100}
+
+/* Slow release, then accelerates into the final position */
+.menu-overlay{
+  transform:translate3d(0,-102%,0);
+  transition:
+    transform .95s cubic-bezier(.62,.02,.92,.58),
+    visibility 0s linear .95s;
+}
+.menu-overlay.open{
+  transform:translate3d(0,0,0);
+  transition:
+    transform .95s cubic-bezier(.62,.02,.92,.58),
+    visibility 0s;
+}
+.menu-overlay:not(.open){
+  transition:
+    transform .42s cubic-bezier(.4,0,1,1),
+    visibility 0s linear .42s;
+}
+
+/* Header remains visually fixed while menu is open */
+body.menu-open .site-header{
+  background:transparent;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  border-color:transparent;
+}
+body.menu-open .site-header .menu-trigger{font-size:0}
+body.menu-open .site-header .menu-trigger::after{
+  content:"Close.";
+  font:italic 25px "Libre Caslon Text",Georgia,serif;
+}
+@media(max-width:900px){
+  body.menu-open .site-header .menu-trigger::after{font-size:19px}
+}
+
+/* Arrival light begins only as the falling panel reaches its destination */
+.menu-overlay.open::after{
+  animation:menuArrivalGlow 1.25s .82s cubic-bezier(.16,1,.3,1) both;
+}

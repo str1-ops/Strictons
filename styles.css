@@ -180,3 +180,10 @@ body.menu-open .site-header .menu-trigger::after{
 .hero-media .hero-poster{position:absolute;inset:0;display:block}
 .hero-media .hero-poster img{width:100%;height:100%;object-fit:cover;display:block}
 .hero-media video{position:absolute;inset:0;z-index:1}
+
+/* Homepage media clarity and contrast */
+.hero-media{background:#171717}
+.hero-media:after{z-index:2;background:linear-gradient(to bottom,rgba(5,5,5,.34) 0%,rgba(5,5,5,.16) 42%,rgba(5,5,5,.38) 100%);pointer-events:none}
+.hero-media .hero-poster{z-index:0}
+.hero-media video{z-index:1;filter:none;transform:translateZ(0);backface-visibility:hidden}
+.hero:before,.hero-copy{z-index:3}

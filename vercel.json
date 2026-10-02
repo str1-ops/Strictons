@@ -9,6 +9,10 @@
     {
       "source": "/why",
       "destination": "/why.html"
+    },
+    {
+      "source": "/how-it-works",
+      "destination": "/how-it-works.html"
     }
   ]
 }

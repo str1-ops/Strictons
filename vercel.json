@@ -13,6 +13,10 @@
     {
       "source": "/how-it-works",
       "destination": "/how-it-works.html"
+    },
+    {
+      "source": "/for-business",
+      "destination": "/for-business.html"
     }
   ]
 }

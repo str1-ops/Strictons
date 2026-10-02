@@ -21,6 +21,10 @@
     {
       "source": "/digital-guides",
       "destination": "/digital-guides.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
     }
   ]
 }

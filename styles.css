@@ -16,7 +16,7 @@
 @media(max-width:760px){.hero-copy h1{white-space:normal;max-width:94vw;margin-left:auto;margin-right:auto}.hero-copy h2{max-width:88vw;margin-left:auto;margin-right:auto}.footer-nav{flex-wrap:wrap;justify-content:center;white-space:normal;row-gap:22px}.footer-nav a{font-size:clamp(27px,7vw,36px)}}
 @media(max-height:760px) and (min-width:761px){.hero{min-height:620px}.hero-copy{margin-top:105px}.hero-copy p{font-size:clamp(24px,2vw,34px)}.hero-copy h1{font-size:clamp(58px,7vw,110px)}.hero-copy h2{margin-top:20px;font-size:clamp(20px,1.7vw,29px)}.site-header{height:112px}.site-header.scrolled{height:105px}.reel figure,.reel figure:nth-child(2),.reel figure:nth-child(3){height:280px;width:280px}}
 
-/* Masthead refinement — compact at rest and on scroll */
+/* Masthead refinement - compact at rest and on scroll */
 .wordmark strong{font-family:"Grandeur Display","Libre Caslon Display",Didot,"Bodoni 72",serif;font-weight:700;font-size:clamp(32px,2.55vw,48px);line-height:.88;letter-spacing:-.025em}
 .wordmark span{font-family:"Red Hat Display",Arial,sans-serif;font-weight:500;font-size:clamp(7px,.58vw,11px);line-height:1;letter-spacing:.48em;margin-top:12px;padding-left:.48em}
 .site-header .wordmark{opacity:1}

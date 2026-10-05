@@ -53,39 +53,44 @@ function formatPercent(value){
 
 const conversionSteps=[0,0.5,1,1.5,2,2.5];
 
-let doorAnimationTimer=null;
+let doorAnimationFrame=null;
 let displayedDoorCustomers=0;
 
 function animateDoorCustomers(target){
   target=Math.max(0,Math.round(target));
-  if(doorAnimationTimer){
-    clearInterval(doorAnimationTimer);
-    doorAnimationTimer=null;
+
+  if(doorAnimationFrame){
+    cancelAnimationFrame(doorAnimationFrame);
+    doorAnimationFrame=null;
   }
 
-  if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){
+  if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches||displayedDoorCustomers===target){
     displayedDoorCustomers=target;
     doorCustomers.textContent=numberFmt.format(target);
     return;
   }
 
-  if(displayedDoorCustomers===target){
-    doorCustomers.textContent=numberFmt.format(target);
-    return;
-  }
+  const startValue=displayedDoorCustomers;
+  const change=target-startValue;
+  const duration=95;
+  const startTime=performance.now();
 
-  const direction=target>displayedDoorCustomers?1:-1;
-  const delay=1;
-
-  doorAnimationTimer=setInterval(()=>{
-    displayedDoorCustomers+=direction;
+  function tick(now){
+    const progress=Math.min(1,(now-startTime)/duration);
+    const eased=1-Math.pow(1-progress,3);
+    displayedDoorCustomers=Math.round(startValue+(change*eased));
     doorCustomers.textContent=numberFmt.format(displayedDoorCustomers);
 
-    if(displayedDoorCustomers===target){
-      clearInterval(doorAnimationTimer);
-      doorAnimationTimer=null;
+    if(progress<1){
+      doorAnimationFrame=requestAnimationFrame(tick);
+    }else{
+      displayedDoorCustomers=target;
+      doorCustomers.textContent=numberFmt.format(target);
+      doorAnimationFrame=null;
     }
-  },delay);
+  }
+
+  doorAnimationFrame=requestAnimationFrame(tick);
 }
 
 function update(){

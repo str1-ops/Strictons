@@ -53,7 +53,7 @@ function update(){
   const fee=num(sponsorshipFee);
   const checkins=num(dailyCheckins);
   const guests=num(guestsPerCheckin);
-  const conversion=Math.min(5,Math.max(.25,Number(conversionSlider?.value)||5));
+  const conversion=Math.min(5,Math.max(0,Number(conversionSlider?.value)||0));
 
   const annualGuestCount=checkins*guests*365;
   const dailySponsorship=fee/365;
@@ -68,7 +68,7 @@ function update(){
   doorCustomers.textContent=numberFmt.format(Math.round(convertedCustomers));
   monthlyDoorCustomers.textContent=decimalFmt.format(monthlyCustomers);
 
-  const progress=((conversion-.25)/(5-.25))*100;
+  const progress=(conversion/5)*100;
   conversionSlider?.style.setProperty('--slider-progress',progress+'%');
 }
 
@@ -78,7 +78,7 @@ document.getElementById('resetCalculator')?.addEventListener('click',()=>{
   if(sponsorshipFee)sponsorshipFee.value='0';
   if(dailyCheckins)dailyCheckins.value='0';
   if(guestsPerCheckin)guestsPerCheckin.value='0';
-  if(conversionSlider)conversionSlider.value='5';
+  if(conversionSlider)conversionSlider.value='0';
   update();
 });
 

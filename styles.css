@@ -190,3 +190,6 @@ body.menu-open .site-header .menu-trigger::after{
 
 /* Consistent editorial heading rhythm site-wide. */
 body h1,body h2,body h3{line-height:.98!important}
+
+/* Keep the Menu. trigger light and editorial. */
+.menu-trigger{font-weight:400!important}

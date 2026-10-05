@@ -53,6 +53,42 @@ function formatPercent(value){
 
 const conversionSteps=[0,0.5,1,1.5,2,2.5];
 
+let doorAnimationTimer=null;
+let displayedDoorCustomers=0;
+
+function animateDoorCustomers(target){
+  target=Math.max(0,Math.round(target));
+  if(doorAnimationTimer){
+    clearInterval(doorAnimationTimer);
+    doorAnimationTimer=null;
+  }
+
+  if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){
+    displayedDoorCustomers=target;
+    doorCustomers.textContent=numberFmt.format(target);
+    return;
+  }
+
+  if(displayedDoorCustomers===target){
+    doorCustomers.textContent=numberFmt.format(target);
+    return;
+  }
+
+  const distance=Math.abs(target-displayedDoorCustomers);
+  const delay=Math.max(4,Math.min(18,Math.round(900/distance)));
+  const direction=target>displayedDoorCustomers?1:-1;
+
+  doorAnimationTimer=setInterval(()=>{
+    displayedDoorCustomers+=direction;
+    doorCustomers.textContent=numberFmt.format(displayedDoorCustomers);
+
+    if(displayedDoorCustomers===target){
+      clearInterval(doorAnimationTimer);
+      doorAnimationTimer=null;
+    }
+  },delay);
+}
+
 function update(){
   const fee=num(sponsorshipFee);
   const checkins=num(dailyCheckins);
@@ -71,7 +107,7 @@ function update(){
   conversionDisplay.textContent=formatPercent(conversion);
   const perThousand=Math.round(conversion*10);
   perThousandDisplay.textContent=perThousand+' in every 1,000 hotel guests';
-  doorCustomers.textContent=numberFmt.format(Math.round(convertedCustomers));
+  animateDoorCustomers(convertedCustomers);
 
   const progress=(conversionIndex/(conversionSteps.length-1))*100;
   conversionSlider?.style.setProperty('--slider-progress',progress+'%');

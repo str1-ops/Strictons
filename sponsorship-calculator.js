@@ -37,7 +37,7 @@ const ids=[
 const inputs=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)]));
 
 const outputIds=[
-  'annualGuests','monthlyCost','costPerGuest','funnelGuests','funnelGuideUsers',
+  'annualGuests','dailyCost','costPerGuest','funnelGuests','funnelGuideUsers',
   'funnelCustomers','breakEvenCustomers','breakEvenPace',
   'grossProfitPerCustomer','breakEvenMonthly','requiredConversion','modelCustomers',
   'modelRevenue','modelGrossProfit','customerAcquisitionCost','estimatedNetReturn','returnMultiple'
@@ -68,7 +68,7 @@ function update(){
 
   const annualCheckins=daily*365;
   const annualGuests=annualCheckins*guestsPerCheckin;
-  const monthlyCost=fee/12;
+  const dailyCost=fee/365;
   const costPerGuest=annualGuests>0?fee/annualGuests:NaN;
 
   const guideUsers=annualGuests*guideUse;
@@ -87,7 +87,7 @@ function update(){
   const breakEvenDays=Number.isFinite(breakEvenCustomers)&&breakEvenCustomers>0?365/breakEvenCustomers:NaN;
 
   set('annualGuests',int(annualGuests));
-  set('monthlyCost',money(monthlyCost));
+  set('dailyCost',ratioMoney(dailyCost));
   set('costPerGuest',annualGuests>0?ratioMoney(costPerGuest):'—');
 
   set('funnelGuests',int(annualGuests));

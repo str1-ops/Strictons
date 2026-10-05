@@ -61,15 +61,11 @@
         <h2>Audience assumptions</h2>
         <p class="group-note">Use conservative estimates. These are modelling assumptions, not guaranteed results.</p>
         <label>
-          <span>Guests who use the guide <small>% of check-ins</small></span>
+          <span>Guests who look through the guide <small>% of check-ins</small></span>
           <div class="percent-input"><input id="guideUseRate" type="number" min="0" max="100" step="0.1" value="0" inputmode="decimal"><b>%</b></div>
         </label>
         <label>
-          <span>Guide users who reach Local Finds <small>%</small></span>
-          <div class="percent-input"><input id="sectionReachRate" type="number" min="0" max="100" step="0.1" value="0" inputmode="decimal"><b>%</b></div>
-        </label>
-        <label>
-          <span>Local Finds audience who visit you <small>%</small></span>
+          <span>Guide users who decide to visit your business <small>%</small></span>
           <div class="percent-input"><input id="conversionRate" type="number" min="0" max="100" step="0.1" value="0" inputmode="decimal"><b>%</b></div>
         </label>
       </div>
@@ -133,11 +129,7 @@
             <p>Estimated guide users</p>
           </article>
           <article class="funnel-step step-3">
-            <div><span>03</span><strong id="funnelSectionReach">0</strong></div>
-            <p>Estimated Local Finds audience</p>
-          </article>
-          <article class="funnel-step step-4">
-            <div><span>04</span><strong id="funnelCustomers">0</strong></div>
+            <div><span>03</span><strong id="funnelCustomers">0</strong></div>
             <p>Estimated referred visits / bookings</p>
           </article>
         </div>
@@ -167,7 +159,7 @@
             <strong id="breakEvenMonthly">—</strong>
           </article>
           <article>
-            <span>Required conversion from Local Finds audience</span>
+            <span>Required conversion from guide users</span>
             <strong id="requiredConversion">—</strong>
           </article>
         </div>
@@ -216,7 +208,7 @@
       <section class="explain-section">
         <p>HOW TO READ THIS</p>
         <div class="explain-grid">
-          <article><span>01</span><h3>Potential audience is not an impression.</h3><p>A check-in is simply an opportunity for the guide to reach a guest. The calculator deliberately separates hotel arrivals from guide use, section reach and actual visits.</p></article>
+          <article><span>01</span><h3>Potential audience is not an impression.</h3><p>A check-in is simply an opportunity for the guide to reach a guest. The calculator deliberately separates hotel arrivals from people who actually look through the guide and the smaller percentage who then decide to visit your business.</p></article>
           <article><span>02</span><h3>Break-even matters more than reach.</h3><p>If your average referred customer contributes meaningful gross profit, only a small number of incremental customers may be needed for the sponsorship to pay for itself.</p></article>
           <article><span>03</span><h3>Use conservative assumptions.</h3><p>Until live tracking exists, keep guide-use and conversion assumptions modest. Real QR, click and offer-redemption data can replace assumptions over time.</p></article>
         </div>

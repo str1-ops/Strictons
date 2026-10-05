@@ -18,3 +18,5 @@
 .guide-stage,
 .sample-cta,
 .black-stage{background:#171715}
+
+.book-spread img{display:block;height:100%;width:auto;background:transparent}.book-spread img+img{margin-left:0}.book-spread.single img:first-child{display:none}.book-spread.single img:last-child{display:block}

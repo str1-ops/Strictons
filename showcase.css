@@ -20,3 +20,26 @@
 .black-stage{background:#171715}
 
 .book-spread img{display:block;height:100%;width:auto;background:transparent}.book-spread img+img{margin-left:0}.book-spread.single img:first-child{display:none}.book-spread.single img:last-child{display:block}
+
+/* Showcase typography + responsive reader refinements */
+.sample-hero h1{line-height:.98}
+.sample-copy{font-family:"Libre Caslon Display","Libre Caslon Text",serif;font-style:normal}
+
+@media(max-width:850px){
+  .guide-stage{min-height:auto;padding:96px 14px 76px}
+  .book-viewer{width:100%;height:auto;min-height:0;padding:0 42px;box-sizing:border-box}
+  .book-spread{height:auto;width:100%;max-width:none;filter:drop-shadow(0 18px 32px rgba(0,0,0,.42))}
+  .book-spread img{height:auto;min-width:0;max-height:72svh;object-fit:contain}
+  .book-spread:not(.single) img{width:50%;max-width:50%}
+  .book-spread.single img:last-child{width:auto;max-width:50%;margin:0 auto}
+  .book-arrow{padding:8px;font-size:26px}
+  .book-arrow-left{left:4px}
+  .book-arrow-right{right:4px}
+}
+@media(max-width:480px){
+  .book-viewer{padding:0 34px}
+  .book-spread.single img:last-child{max-width:72%}
+  .book-arrow{font-size:23px}
+  .book-arrow-left{left:0}
+  .book-arrow-right{right:0}
+}

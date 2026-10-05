@@ -10,3 +10,10 @@
   .book-arrow-left{left:0}
   .book-arrow-right{right:0}
 }
+
+/* Warm editorial ground for the private guide showcase. */
+.showcase-page,
+.guide-only,
+.sample-hero,
+.guide-stage,
+.sample-cta{background:#171715}

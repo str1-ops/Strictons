@@ -261,7 +261,7 @@ html{scroll-behavior:smooth}
 }
 .funnel{
   display:grid;
-  grid-template-columns:1fr .86fr .72fr .58fr;
+  grid-template-columns:1fr .82fr .64fr;
   align-items:stretch;
   gap:8px;
 }
@@ -276,17 +276,16 @@ html{scroll-behavior:smooth}
 }
 .step-1{background:#ead9cc}
 .step-2{background:#e2d3c7}
-.step-3{background:#d8c5b8}
-.step-4{background:var(--calc-rust);color:#fff4e8;border-color:var(--calc-rust)}
+.step-3{background:var(--calc-rust);color:#fff4e8;border-color:var(--calc-rust)}
 .funnel-step>div{display:flex;justify-content:space-between;gap:14px;align-items:start}
 .funnel-step span{font-size:9px;color:var(--calc-muted)}
-.step-4 span{color:rgba(255,244,232,.65)}
+.step-3 span{color:rgba(255,244,232,.65)}
 .funnel-step strong{
   font:400 clamp(27px,2.2vw,42px)/1 "Libre Caslon Display",Georgia,serif;
   letter-spacing:-.035em;
 }
 .funnel-step p{margin:0;max-width:150px;font-size:12px;line-height:1.4;color:var(--calc-muted)}
-.step-4 p{color:rgba(255,244,232,.8)}
+.step-3 p{color:rgba(255,244,232,.8)}
 
 .break-even-grid{
   display:grid;

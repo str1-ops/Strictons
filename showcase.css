@@ -43,3 +43,14 @@
   .book-arrow-left{left:0}
   .book-arrow-right{right:0}
 }
+
+/* Keep single-page covers the same displayed height as double-page spreads on mobile. */
+@media(max-width:850px){
+  .book-spread{height:min(58svh,560px)}
+  .book-spread img{height:100%;width:auto;max-height:none}
+  .book-spread:not(.single) img{width:auto;max-width:50%}
+  .book-spread.single img:last-child{height:100%;width:auto;max-width:none;margin:0 auto}
+}
+@media(max-width:480px){
+  .book-spread.single img:last-child{height:100%;width:auto;max-width:none}
+}

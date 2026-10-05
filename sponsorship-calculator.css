@@ -296,24 +296,47 @@ html{scroll-behavior:smooth}
   font-size:9px;
 }
 .door-result{
-  padding:30px 0 32px 34px;
+  position:relative;
+  min-height:310px;
+  padding:34px 34px 30px;
   background:var(--calc-rust);
   color:#fff4e8;
   display:flex;
   flex-direction:column;
-  justify-content:center;
+  justify-content:space-between;
+  overflow:hidden;
+}
+.door-result::before{
+  content:"";
+  position:absolute;
+  inset:14px;
+  border:1px solid rgba(255,244,232,.22);
+  pointer-events:none;
 }
 .door-result h3{
+  position:relative;
+  z-index:1;
+  max-width:240px;
   margin:0;
   color:#fff4e8;
-  font:500 clamp(20px,1.6vw,28px)/1.05 "Red Hat Display",Arial,sans-serif;
-  letter-spacing:-.025em;
+  font:400 clamp(28px,2.2vw,40px)/.98 "Libre Caslon Display",Georgia,serif;
+  letter-spacing:-.035em;
+}
+.door-result h3::after{
+  content:"";
+  display:block;
+  width:42px;
+  height:1px;
+  margin-top:18px;
+  background:rgba(255,244,232,.62);
 }
 .door-result strong{
+  position:relative;
+  z-index:1;
   display:block;
-  margin:18px 0 11px;
-  font:400 clamp(72px,7vw,118px)/.8 "Libre Caslon Display",Georgia,serif;
-  letter-spacing:-.06em;
+  margin:42px 0 0;
+  font:400 clamp(92px,8vw,142px)/.72 "Libre Caslon Display",Georgia,serif;
+  letter-spacing:-.07em;
 }
 .funnel-note{
   display:flex;
@@ -342,7 +365,7 @@ html{scroll-behavior:smooth}
   .calculator-workspace{grid-template-columns:350px minmax(0,1fr)}
   .conversion-card{grid-template-columns:1fr}
   .conversion-control{border-right:0;border-bottom:1px solid var(--calc-line);padding-right:0}
-  .door-result{padding:26px 28px}
+  .door-result{min-height:260px;padding:30px 28px 26px}
 }
 
 @media(max-width:900px){
@@ -382,7 +405,10 @@ html{scroll-behavior:smooth}
   .conversion-control{padding:24px 0 28px}
   .slider-wrap{padding-top:42px}
   .slider-scale span:nth-child(2),.slider-scale span:nth-child(4){display:none}
-  .door-result{padding:26px 22px}
+  .door-result{min-height:240px;padding:28px 22px 24px}
+  .door-result::before{inset:10px}
+  .door-result h3{font-size:32px}
+  .door-result strong{margin-top:34px;font-size:92px}
 }
 
 @media print{

@@ -257,21 +257,6 @@ html{scroll-behavior:smooth}
   font-size:11px;
   line-height:1.4;
 }
-.conversion-context span+span{
-  position:relative;
-  padding-left:18px;
-}
-.conversion-context span+span::before{
-  content:"";
-  position:absolute;
-  left:0;
-  top:50%;
-  width:4px;
-  height:4px;
-  border-radius:50%;
-  background:var(--calc-rust);
-  transform:translateY(-50%);
-}
 .slider-wrap{padding-top:44px}
 .conversion-slider{
   --slider-progress:100%;

@@ -303,7 +303,9 @@ html{scroll-behavior:smooth}
   color:#fff4e8;
   display:flex;
   flex-direction:column;
-  justify-content:space-between;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
   overflow:hidden;
 }
 .door-result::before{
@@ -316,27 +318,32 @@ html{scroll-behavior:smooth}
 .door-result h3{
   position:relative;
   z-index:1;
-  max-width:240px;
+  max-width:270px;
   margin:0;
   color:#fff4e8;
-  font:400 clamp(28px,2.2vw,40px)/.98 "Libre Caslon Display",Georgia,serif;
-  letter-spacing:-.035em;
+  font-family:"Libre Caslon Text",Georgia,serif;
+  font-style:italic;
+  font-weight:600;
+  font-size:clamp(28px,2.2vw,40px);
+  line-height:1.02;
+  letter-spacing:-.02em;
+  text-align:center;
 }
-.door-result h3::after{
-  content:"";
-  display:block;
-  width:42px;
-  height:1px;
-  margin-top:18px;
-  background:rgba(255,244,232,.62);
+.door-result h3 em{
+  font:inherit;
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:8px;
 }
+.door-result h3::after{content:none}
 .door-result strong{
   position:relative;
   z-index:1;
   display:block;
-  margin:42px 0 0;
+  margin:28px 0 0;
   font:400 clamp(92px,8vw,142px)/.72 "Libre Caslon Display",Georgia,serif;
   letter-spacing:-.07em;
+  text-align:center;
 }
 .funnel-note{
   display:flex;
@@ -408,7 +415,7 @@ html{scroll-behavior:smooth}
   .door-result{min-height:240px;padding:28px 22px 24px}
   .door-result::before{inset:10px}
   .door-result h3{font-size:32px}
-  .door-result strong{margin-top:34px;font-size:92px}
+  .door-result strong{margin-top:28px;font-size:92px}
 }
 
 @media print{

@@ -31,14 +31,14 @@ document.querySelector('.site-header .wordmark')?.addEventListener('click',()=>m
 addEventListener('keydown',e=>{if(e.key==='Escape')menu(false)});
 
 const ids=[
-  'sponsorshipFee','dailyCheckins','guideUseRate','sectionReachRate',
+  'sponsorshipFee','dailyCheckins','guideUseRate',
   'conversionRate','averageSpend','grossMargin'
 ];
 const inputs=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)]));
 
 const outputIds=[
   'annualCheckins','monthlyCost','costPerCheckin','funnelCheckins','funnelGuideUsers',
-  'funnelSectionReach','funnelCustomers','breakEvenCustomers','breakEvenPace',
+  'funnelCustomers','breakEvenCustomers','breakEvenPace',
   'grossProfitPerCustomer','breakEvenMonthly','requiredConversion','modelCustomers',
   'modelRevenue','modelGrossProfit','customerAcquisitionCost','estimatedNetReturn','returnMultiple'
 ];
@@ -61,7 +61,6 @@ function update(){
   const fee=num(inputs.sponsorshipFee);
   const daily=num(inputs.dailyCheckins);
   const guideUse=pct(inputs.guideUseRate);
-  const sectionReach=pct(inputs.sectionReachRate);
   const conversion=pct(inputs.conversionRate);
   const averageSpend=num(inputs.averageSpend);
   const grossMargin=pct(inputs.grossMargin);
@@ -71,8 +70,7 @@ function update(){
   const costPerCheckin=annualCheckins>0?fee/annualCheckins:NaN;
 
   const guideUsers=annualCheckins*guideUse;
-  const localFindsAudience=guideUsers*sectionReach;
-  const referredCustomers=localFindsAudience*conversion;
+  const referredCustomers=guideUsers*conversion;
 
   const customerRevenue=referredCustomers*averageSpend;
   const grossProfitPerCustomer=averageSpend*grossMargin;
@@ -83,7 +81,7 @@ function update(){
 
   const breakEvenCustomers=grossProfitPerCustomer>0?fee/grossProfitPerCustomer:NaN;
   const breakEvenMonthly=Number.isFinite(breakEvenCustomers)?breakEvenCustomers/12:NaN;
-  const requiredConversion=localFindsAudience>0&&Number.isFinite(breakEvenCustomers)?breakEvenCustomers/localFindsAudience:NaN;
+  const requiredConversion=guideUsers>0&&Number.isFinite(breakEvenCustomers)?breakEvenCustomers/guideUsers:NaN;
   const breakEvenDays=Number.isFinite(breakEvenCustomers)&&breakEvenCustomers>0?365/breakEvenCustomers:NaN;
 
   set('annualCheckins',int(annualCheckins));
@@ -92,7 +90,6 @@ function update(){
 
   set('funnelCheckins',int(annualCheckins));
   set('funnelGuideUsers',int(guideUsers));
-  set('funnelSectionReach',int(localFindsAudience));
   set('funnelCustomers',int(referredCustomers));
 
   set('grossProfitPerCustomer',grossProfitPerCustomer>0?money(grossProfitPerCustomer):'—');

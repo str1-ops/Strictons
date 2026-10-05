@@ -41,10 +41,8 @@ const costPerGuest=document.getElementById('costPerGuest');
 const conversionDisplay=document.getElementById('conversionDisplay');
 const perThousandDisplay=document.getElementById('perThousandDisplay');
 const doorCustomers=document.getElementById('doorCustomers');
-const monthlyDoorCustomers=document.getElementById('monthlyDoorCustomers');
 
 const numberFmt=new Intl.NumberFormat('en-AU',{maximumFractionDigits:0});
-const decimalFmt=new Intl.NumberFormat('en-AU',{minimumFractionDigits:1,maximumFractionDigits:1});
 const currency2Fmt=new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD',minimumFractionDigits:2,maximumFractionDigits:2});
 
 function num(input){return Math.max(0,Number(input?.value)||0)}
@@ -66,7 +64,6 @@ function update(){
   const dailySponsorship=fee/365;
   const perGuest=annualGuestCount>0?fee/annualGuestCount:NaN;
   const convertedCustomers=annualGuestCount*(conversion/100);
-  const monthlyCustomers=convertedCustomers/12;
 
   annualGuests.textContent=numberFmt.format(Math.round(annualGuestCount));
   dailyCost.textContent=currency2Fmt.format(dailySponsorship);
@@ -75,7 +72,6 @@ function update(){
   const perThousand=Math.round(conversion*10);
   perThousandDisplay.textContent=perThousand+' in every 1,000 hotel guests';
   doorCustomers.textContent=numberFmt.format(Math.round(convertedCustomers));
-  monthlyDoorCustomers.textContent=decimalFmt.format(monthlyCustomers);
 
   const progress=(conversionIndex/(conversionSteps.length-1))*100;
   conversionSlider?.style.setProperty('--slider-progress',progress+'%');

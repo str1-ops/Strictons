@@ -39,6 +39,8 @@ const annualGuests=document.getElementById('annualGuests');
 const dailyCost=document.getElementById('dailyCost');
 const costPerGuest=document.getElementById('costPerGuest');
 const conversionDisplay=document.getElementById('conversionDisplay');
+const perThousandDisplay=document.getElementById('perThousandDisplay');
+const oneInDisplay=document.getElementById('oneInDisplay');
 const doorCustomers=document.getElementById('doorCustomers');
 const monthlyDoorCustomers=document.getElementById('monthlyDoorCustomers');
 
@@ -47,7 +49,10 @@ const decimalFmt=new Intl.NumberFormat('en-AU',{minimumFractionDigits:1,maximumF
 const currency2Fmt=new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD',minimumFractionDigits:2,maximumFractionDigits:2});
 
 function num(input){return Math.max(0,Number(input?.value)||0)}
-function formatPercent(value){return value.toFixed(2)+'%'}
+function formatPercent(value){
+  if(Number.isInteger(value)) return value.toFixed(0)+'%';
+  return value.toFixed(1)+'%';
+}
 
 function update(){
   const fee=num(sponsorshipFee);
@@ -65,6 +70,9 @@ function update(){
   dailyCost.textContent=currency2Fmt.format(dailySponsorship);
   costPerGuest.textContent=Number.isFinite(perGuest)?currency2Fmt.format(perGuest):'—';
   conversionDisplay.textContent=formatPercent(conversion);
+  const perThousand=Math.round(conversion*10);
+  perThousandDisplay.textContent=perThousand+' in every 1,000 hotel guests';
+  oneInDisplay.textContent=conversion>0?'≈ 1 in every '+numberFmt.format(Math.round(100/conversion))+' hotel guests':'—';
   doorCustomers.textContent=numberFmt.format(Math.round(convertedCustomers));
   monthlyDoorCustomers.textContent=decimalFmt.format(monthlyCustomers);
 

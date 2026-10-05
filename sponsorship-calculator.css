@@ -41,56 +41,9 @@ html{scroll-behavior:smooth}
 .sponsor-calc-page.menu-open .site-header .wordmark{color:var(--white)}
 
 .calculator-main{padding-top:112px}
-.calculator-hero{
-  min-height:660px;
-  padding:120px 3.25vw 80px;
-  border-bottom:1px solid var(--calc-line);
-}
-.kicker,.results-intro>p,.section-title-row p,.explain-section>p,.panel-heading>p{
-  margin:0;
-  color:var(--calc-rust-deep);
-  font-size:12px;
-  font-weight:500;
-  letter-spacing:.19em;
-  text-transform:uppercase;
-}
-.hero-grid{
-  display:grid;
-  grid-template-columns:minmax(0,1.45fr) minmax(320px,.55fr);
-  gap:7vw;
-  align-items:end;
-  margin-top:64px;
-}
-.hero-grid h1{
-  margin:0;
-  max-width:1100px;
-  font:400 clamp(62px,6.8vw,124px)/.88 "Grandeur Display","Libre Caslon Display",Didot,serif;
-  letter-spacing:-.047em;
-}
-.hero-grid h1 em{
-  font-family:"Libre Caslon Text",Georgia,serif;
-  font-weight:400;
-}
-.hero-copy{
-  max-width:520px;
-  padding-bottom:10px;
-}
-.hero-copy>p:first-child{
-  margin:0;
-  font:400 clamp(18px,1.25vw,23px)/1.58 "Libre Caslon Text",Georgia,serif;
-}
-.hero-note{
-  margin:24px 0 0;
-  padding-top:20px;
-  border-top:1px solid var(--calc-line);
-  color:var(--calc-muted);
-  font-size:13px;
-  line-height:1.55;
-}
-
 .calculator-workspace{
   display:grid;
-  grid-template-columns:390px minmax(0,1fr);
+  grid-template-columns:430px minmax(0,1fr);
   gap:0;
   align-items:start;
   max-width:1920px;
@@ -99,9 +52,9 @@ html{scroll-behavior:smooth}
 .inputs-panel{
   position:sticky;
   top:112px;
-  max-height:calc(100vh - 112px);
+  height:calc(100vh - 112px);
   overflow:auto;
-  padding:42px 32px 54px 3.25vw;
+  padding:24px 24px 26px 3.25vw;
   background:var(--calc-rust);
   color:#fff4e8;
   border-right:1px solid rgba(255,244,232,.28);
@@ -111,7 +64,7 @@ html{scroll-behavior:smooth}
   justify-content:space-between;
   align-items:center;
   gap:20px;
-  margin-bottom:34px;
+  margin-bottom:16px;
 }
 .panel-heading>p{color:#fff4e8}
 .panel-heading button{
@@ -124,44 +77,51 @@ html{scroll-behavior:smooth}
   cursor:pointer;
 }
 .input-group{
-  padding:28px 0;
+  padding:15px 0;
   border-top:1px solid rgba(255,244,232,.28);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  align-items:end;
 }
 .input-group h2{
-  margin:0 0 20px;
-  font:400 30px/1 "Libre Caslon Display",Georgia,serif;
+  grid-column:1/-1;
+  margin:0;
+  font:400 23px/1 "Libre Caslon Display",Georgia,serif;
 }
 .group-note{
-  margin:-8px 0 22px;
+  grid-column:1/-1;
+  margin:-3px 0 0;
   color:rgba(255,244,232,.66);
-  font-size:11px;
-  line-height:1.5;
+  font-size:10px;
+  line-height:1.4;
 }
-.input-group label{display:block;margin:0 0 20px}
-.input-group label:last-child{margin-bottom:0}
+.input-group label{display:block;margin:0;min-width:0}
 .input-group label>span{
   display:flex;
-  justify-content:space-between;
-  gap:10px;
-  margin-bottom:8px;
-  font-size:12px;
+  flex-direction:column;
+  gap:2px;
+  min-height:31px;
+  margin-bottom:6px;
+  font-size:10px;
+  line-height:1.2;
 }
 .input-group label small{
   color:rgba(255,244,232,.62);
-  font-size:10px;
+  font-size:9px;
   font-weight:400;
-  text-align:right;
+  text-align:left;
 }
 .input-group input{
   width:100%;
-  height:56px;
+  height:44px;
   border:1px solid rgba(255,244,232,.44);
   border-radius:0;
   outline:0;
   background:rgba(87,36,19,.14);
   color:#fff4e8;
   padding:0 14px;
-  font:400 22px "Libre Caslon Display",Georgia,serif;
+  font:400 19px "Libre Caslon Display",Georgia,serif;
   appearance:textfield;
 }
 .input-group input::-webkit-inner-spin-button,.input-group input::-webkit-outer-spin-button{appearance:none;margin:0}
@@ -181,8 +141,8 @@ html{scroll-behavior:smooth}
 .percent-input input{padding-right:34px}
 .print-button{
   width:100%;
-  margin-top:12px;
-  padding:16px 0;
+  margin-top:8px;
+  padding:11px 0;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -191,17 +151,17 @@ html{scroll-behavior:smooth}
   border-bottom:1px solid rgba(255,244,232,.55);
   background:none;
   color:#fff4e8;
-  font:400 18px "Libre Caslon Display",Georgia,serif;
+  font:400 15px "Libre Caslon Display",Georgia,serif;
   cursor:pointer;
 }
 
-.results-panel{min-width:0;padding:78px 3.25vw 120px}
+.results-panel{min-width:0;padding:42px 3.25vw 100px}
 .results-intro{
   display:grid;
   grid-template-columns:1fr 1.3fr;
   column-gap:5vw;
   align-items:end;
-  padding-bottom:42px;
+  padding-bottom:28px;
 }
 .results-intro>p{align-self:start}
 .results-intro h2,.section-title-row h2{
@@ -222,8 +182,8 @@ html{scroll-behavior:smooth}
   border-bottom:1px solid var(--calc-line);
 }
 .headline-metrics article{
-  min-height:210px;
-  padding:26px 24px 24px 0;
+  min-height:160px;
+  padding:20px 22px 20px 0;
   border-right:1px solid var(--calc-line);
 }
 .headline-metrics article+article{padding-left:24px}
@@ -236,14 +196,14 @@ html{scroll-behavior:smooth}
 }
 .headline-metrics strong{
   display:block;
-  margin:46px 0 10px;
+  margin:28px 0 8px;
   font:400 clamp(38px,3.4vw,64px)/1 "Libre Caslon Display",Georgia,serif;
   letter-spacing:-.04em;
 }
 .headline-metrics small{color:var(--calc-muted);font-size:10px}
 
 .funnel-section,.break-even-section,.commercial-section,.explain-section{
-  padding:92px 0 0;
+  padding:64px 0 0;
 }
 .section-title-row{
   display:grid;
@@ -401,7 +361,7 @@ html{scroll-behavior:smooth}
 .sponsor-site-footer footer{padding:28px 20px 0!important;margin:0!important}
 
 @media(max-width:1150px){
-  .calculator-workspace{grid-template-columns:330px minmax(0,1fr)}
+  .calculator-workspace{grid-template-columns:390px minmax(0,1fr)}
   .headline-metrics,.commercial-grid{grid-template-columns:1fr 1fr}
   .headline-metrics article:nth-child(2){border-right:0}
   .headline-metrics article:nth-child(3){border-top:1px solid var(--calc-line)}
@@ -414,10 +374,15 @@ html{scroll-behavior:smooth}
 @media(max-width:900px){
   .sponsor-calc-page .site-header,.sponsor-calc-page .site-header.scrolled{height:88px}
   .calculator-main{padding-top:88px}
-  .calculator-hero{min-height:auto;padding:105px 24px 72px}
-  .hero-grid{grid-template-columns:1fr;gap:42px}
   .calculator-workspace{display:block}
-  .inputs-panel{position:relative;top:0;max-height:none;padding:42px 24px}
+  .inputs-panel{position:relative;top:0;height:auto;max-height:none;padding:32px 24px}
+  .input-group{display:block;padding:22px 0}
+  .input-group h2{margin:0 0 18px;font-size:28px}
+  .group-note{margin:-6px 0 18px}
+  .input-group label{margin:0 0 16px}
+  .input-group label:last-child{margin-bottom:0}
+  .input-group label>span{min-height:0;font-size:12px;margin-bottom:8px}
+  .input-group label small{font-size:10px}
   .results-panel{padding:65px 24px 90px}
   .results-intro{grid-template-columns:1fr}
   .results-intro h2,.results-intro>span{grid-column:1}
@@ -432,10 +397,7 @@ html{scroll-behavior:smooth}
 @media(max-width:600px){
   .sponsor-calc-page .site-header,.sponsor-calc-page .site-header.scrolled{height:82px}
   .calculator-main{padding-top:82px}
-  .calculator-hero{padding:86px 18px 58px}
-  .hero-grid{margin-top:40px}
-  .hero-grid h1{font-size:clamp(52px,15vw,76px)}
-  .inputs-panel{padding:32px 18px}
+  .inputs-panel{padding:28px 18px}
   .results-panel{padding:50px 18px 70px}
   .headline-metrics,.funnel,.break-even-grid,.commercial-grid,.roi-card{grid-template-columns:1fr}
   .headline-metrics article,.headline-metrics article+article,.break-even-grid article,.break-even-grid article:first-child{
@@ -455,7 +417,6 @@ html{scroll-behavior:smooth}
 @media print{
   .site-header,.menu-overlay,.sponsor-site-footer,.print-button,.panel-heading button{display:none!important}
   .calculator-main{padding-top:0}
-  .calculator-hero{min-height:auto;padding:30px 0 24px}
   .calculator-workspace{display:block}
   .inputs-panel{
     position:static;

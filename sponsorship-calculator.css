@@ -323,7 +323,7 @@ html{scroll-behavior:smooth}
   color:#fff4e8;
   font-family:"Libre Caslon Text",Georgia,serif;
   font-style:italic;
-  font-weight:600;
+  font-weight:400;
   font-size:clamp(28px,2.2vw,40px);
   line-height:1.02;
   letter-spacing:-.02em;
@@ -332,7 +332,7 @@ html{scroll-behavior:smooth}
 .door-result h3 em{
   font:inherit;
   text-decoration:underline;
-  text-decoration-thickness:1px;
+  text-decoration-thickness:2px;
   text-underline-offset:8px;
 }
 .door-result h3::after{content:none}

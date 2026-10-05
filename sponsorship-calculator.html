@@ -50,166 +50,88 @@
         </label>
       </div>
 
-      <div class="input-group secondary-inputs">
-        <h2>Audience assumptions</h2>
-        <p class="group-note">Use conservative estimates. These are modelling assumptions, not guaranteed results.</p>
-        <label>
-          <span>Guests who look through the guide <small>% of hotel guests</small></span>
-          <div class="percent-input"><input id="guideUseRate" type="number" min="0" max="100" step="0.1" value="0" inputmode="decimal"><b>%</b></div>
-        </label>
-        <label>
-          <span>Guide users who decide to visit your business <small>%</small></span>
-          <div class="percent-input"><input id="conversionRate" type="number" min="0" max="100" step="0.1" value="0" inputmode="decimal"><b>%</b></div>
-        </label>
-      </div>
-
-      <div class="input-group secondary-inputs">
-        <h2>Your business economics</h2>
-        <label>
-          <span>Average customer spend <small>per referred visit / booking</small></span>
-          <div class="money-input"><b>$</b><input id="averageSpend" type="number" min="0" step="1" value="0" inputmode="decimal"></div>
-        </label>
-        <label>
-          <span>Gross margin <small>after direct cost of sale</small></span>
-          <div class="percent-input"><input id="grossMargin" type="number" min="0" max="100" step="0.1" value="0" inputmode="decimal"><b>%</b></div>
-        </label>
-      </div>
-
       <button class="print-button" type="button" id="printCalculator">Print / Save summary <span>↗</span></button>
     </aside>
 
     <div class="results-panel">
-      <div class="results-intro">
-        <p>THE HOTEL AUDIENCE</p>
-        <h2>Your potential guest opportunity.</h2>
-        <span>Based only on the figures entered at left.</span>
-      </div>
+      <section class="audience-section">
+        <div class="results-intro">
+          <p>THE HOTEL AUDIENCE</p>
+          <h1>Your potential guest opportunity.</h1>
+          <span>Based only on the hotel figures entered at left.</span>
+        </div>
 
-      <div class="headline-metrics">
-        <article>
-          <span>Annual hotel guests</span>
-          <strong id="annualGuests">0</strong>
-          <small>daily check-ins × guests per check-in × 365</small>
-        </article>
-        <article>
-          <span>Sponsorship / day</span>
-          <strong id="dailyCost">$0</strong>
-          <small>annual fee ÷ 365</small>
-        </article>
-        <article>
-          <span>Cost / potential hotel guest</span>
-          <strong id="costPerGuest">—</strong>
-          <small>before engagement assumptions</small>
-        </article>
-      </div>
+        <div class="headline-metrics">
+          <article>
+            <span>Annual hotel guests</span>
+            <strong id="annualGuests">0</strong>
+            <small>daily check-ins × guests per check-in × 365</small>
+          </article>
+          <article>
+            <span>Sponsorship / day</span>
+            <strong id="dailyCost">$0.00</strong>
+            <small>annual fee ÷ 365</small>
+          </article>
+          <article>
+            <span>Cost / potential hotel guest</span>
+            <strong id="costPerGuest">—</strong>
+            <small>annual sponsorship ÷ annual hotel guests</small>
+          </article>
+        </div>
+      </section>
 
       <section class="funnel-section">
         <div class="section-title-row">
           <div>
-            <p>AUDIENCE FUNNEL</p>
-            <h2>From hotel arrival to your door.</h2>
+            <p>CUSTOMER FUNNEL</p>
+            <h2>What if a small percentage walks through your door?</h2>
           </div>
-          <span>Illustrative scenario</span>
+          <span>Illustrative conversion</span>
         </div>
 
-        <div class="funnel">
-          <article class="funnel-step step-1">
-            <div><span>01</span><strong id="funnelGuests">0</strong></div>
-            <p>Annual hotel guests</p>
-          </article>
-          <article class="funnel-step step-2">
-            <div><span>02</span><strong id="funnelGuideUsers">0</strong></div>
-            <p>Estimated guide users</p>
-          </article>
-          <article class="funnel-step step-3">
-            <div><span>03</span><strong id="funnelCustomers">0</strong></div>
-            <p>Estimated referred visits / bookings</p>
-          </article>
+        <div class="conversion-card">
+          <div class="conversion-control">
+            <div class="conversion-topline">
+              <div>
+                <span class="metric-label">Converted hotel guests</span>
+                <strong id="conversionDisplay">5.00%</strong>
+              </div>
+              <p>Move the slider to test any conversion rate from 0.25% to 5.00%.</p>
+            </div>
+
+            <div class="slider-wrap">
+              <input
+                id="conversionSlider"
+                class="conversion-slider"
+                type="range"
+                min="0.25"
+                max="5"
+                step="0.25"
+                value="5"
+                aria-label="Percentage of annual hotel guests converted into customers"
+              >
+              <div class="slider-scale" aria-hidden="true">
+                <span>0.25%</span>
+                <span>1%</span>
+                <span>2%</span>
+                <span>3%</span>
+                <span>4%</span>
+                <span>5%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="door-result">
+            <span class="metric-label">Customers physically at your door</span>
+            <strong id="doorCustomers">0</strong>
+            <p><span id="monthlyDoorCustomers">0</span> customers per month on average</p>
+          </div>
+        </div>
+
+        <div class="funnel-note">
+          <p>The slider applies the selected percentage directly to the hotel's estimated annual guest count. It is a scenario tool, not a promised result.</p>
         </div>
       </section>
-
-      <section class="break-even-section">
-        <div class="section-title-row">
-          <div>
-            <p>BREAK-EVEN VIEW</p>
-            <h2>What would this need to generate?</h2>
-          </div>
-          <span>Uses your spend + margin</span>
-        </div>
-
-        <div class="break-even-grid">
-          <article class="break-even-hero">
-            <span>Customers needed to recover the sponsorship</span>
-            <strong id="breakEvenCustomers">—</strong>
-            <p id="breakEvenPace">Enter average spend and gross margin to calculate.</p>
-          </article>
-          <article>
-            <span>Gross profit / referred customer</span>
-            <strong id="grossProfitPerCustomer">—</strong>
-          </article>
-          <article>
-            <span>Break-even customers / month</span>
-            <strong id="breakEvenMonthly">—</strong>
-          </article>
-          <article>
-            <span>Required conversion from guide users</span>
-            <strong id="requiredConversion">—</strong>
-          </article>
-        </div>
-      </section>
-
-      <section class="commercial-section">
-        <div class="section-title-row">
-          <div>
-            <p>MODELLED OUTCOME</p>
-            <h2>If the assumptions hold.</h2>
-          </div>
-          <span>No guarantee of performance</span>
-        </div>
-
-        <div class="commercial-grid">
-          <article>
-            <span>Estimated referred customers / year</span>
-            <strong id="modelCustomers">0</strong>
-          </article>
-          <article>
-            <span>Estimated customer revenue</span>
-            <strong id="modelRevenue">$0</strong>
-          </article>
-          <article>
-            <span>Estimated gross profit generated</span>
-            <strong id="modelGrossProfit">$0</strong>
-          </article>
-          <article>
-            <span>Estimated cost / referred customer</span>
-            <strong id="customerAcquisitionCost">—</strong>
-          </article>
-        </div>
-
-        <div class="roi-card">
-          <div>
-            <p>ESTIMATED RETURN AFTER SPONSORSHIP COST</p>
-            <strong id="estimatedNetReturn">$0</strong>
-          </div>
-          <div>
-            <p>GROSS-PROFIT RETURN ON SPEND</p>
-            <strong id="returnMultiple">—</strong>
-          </div>
-        </div>
-      </section>
-
-      <section class="explain-section">
-        <p>HOW TO READ THIS</p>
-        <div class="explain-grid">
-          <article><span>01</span><h3>Potential audience is not an impression.</h3><p>Each check-in can represent more than one person. The calculator first converts check-ins into estimated hotel guests, then separates those guests into people who actually look through the guide and the smaller percentage who then decide to visit your business.</p></article>
-          <article><span>02</span><h3>Break-even matters more than reach.</h3><p>If your average referred customer contributes meaningful gross profit, only a small number of incremental customers may be needed for the sponsorship to pay for itself.</p></article>
-          <article><span>03</span><h3>Use conservative assumptions.</h3><p>Until live tracking exists, keep guide-use and conversion assumptions modest. Real QR, click and offer-redemption data can replace assumptions over time.</p></article>
-        </div>
-      </section>
-
-      <div class="calculator-disclaimer">
-        <p><strong>Important:</strong> This calculator is an illustrative planning tool. Hotel check-ins and guest counts are not guaranteed impressions, and audience, conversion, customer spend and margin figures are user-entered assumptions. Strictons does not guarantee any number of visits, bookings, revenue or profit from a sponsorship.</p>
-      </div>
     </div>
   </section>
 </main>

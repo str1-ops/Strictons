@@ -53,11 +53,14 @@ function formatPercent(value){
   return value.toFixed(1)+'%';
 }
 
+const conversionSteps=[0,1,1.5,2,2.5];
+
 function update(){
   const fee=num(sponsorshipFee);
   const checkins=num(dailyCheckins);
   const guests=num(guestsPerCheckin);
-  const conversion=Math.min(2,Math.max(0,Number(conversionSlider?.value)||0));
+  const conversionIndex=Math.min(conversionSteps.length-1,Math.max(0,Math.round(Number(conversionSlider?.value)||0)));
+  const conversion=conversionSteps[conversionIndex];
 
   const annualGuestCount=checkins*guests*365;
   const dailySponsorship=fee/365;
@@ -74,7 +77,7 @@ function update(){
   doorCustomers.textContent=numberFmt.format(Math.round(convertedCustomers));
   monthlyDoorCustomers.textContent=decimalFmt.format(monthlyCustomers);
 
-  const progress=(conversion/2)*100;
+  const progress=(conversionIndex/(conversionSteps.length-1))*100;
   conversionSlider?.style.setProperty('--slider-progress',progress+'%');
 }
 

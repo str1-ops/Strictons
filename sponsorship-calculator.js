@@ -40,7 +40,6 @@ const dailyCost=document.getElementById('dailyCost');
 const costPerGuest=document.getElementById('costPerGuest');
 const conversionDisplay=document.getElementById('conversionDisplay');
 const perThousandDisplay=document.getElementById('perThousandDisplay');
-const oneInDisplay=document.getElementById('oneInDisplay');
 const doorCustomers=document.getElementById('doorCustomers');
 const monthlyDoorCustomers=document.getElementById('monthlyDoorCustomers');
 
@@ -72,7 +71,6 @@ function update(){
   conversionDisplay.textContent=formatPercent(conversion);
   const perThousand=Math.round(conversion*10);
   perThousandDisplay.textContent=perThousand+' in every 1,000 hotel guests';
-  oneInDisplay.textContent=conversion>0?'≈ 1 in every '+numberFmt.format(Math.round(100/conversion))+' hotel guests':'—';
   doorCustomers.textContent=numberFmt.format(Math.round(convertedCustomers));
   monthlyDoorCustomers.textContent=decimalFmt.format(monthlyCustomers);
 

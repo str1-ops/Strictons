@@ -24,7 +24,22 @@ async function drawPage(){
  try{await renderTask.promise;status.classList.add("hidden")}catch(e){if(e?.name!=="RenderingCancelledException")throw e}
 }
 async function render(p){page=Math.max(1,Math.min(pdf?.numPages||16,p));const ci=chapterFor(page),c=chapters[ci];pn.textContent=page;document.querySelector("#chapterCount").textContent=String(ci+1).padStart(2,"0")+" / "+String(chapters.length).padStart(2,"0");document.querySelector("#chapterLabel").textContent=c.l;document.querySelector("#chapterTitle").innerHTML=c.t;document.querySelector("#chapterBody").textContent=c.b;document.querySelector("#customNote").textContent=c.n;await drawPage()}
-try{pdf=await pdfjsLib.getDocument("/Beachcomber.pdf").promise;pt.textContent=pdf.numPages;await render(1)}catch(e){status.textContent="Guide could not be loaded";console.error(e)}
+async function loadGuide(){
+ const sources=["/Beachcomber.pdf","https://raw.githubusercontent.com/str1-ops/Strictons/main/Beachcomber.pdf"];
+ let lastError;
+ for(const src of sources){
+  try{
+   status.textContent="Loading guide…";
+   pdf=await pdfjsLib.getDocument({url:src}).promise;
+   pt.textContent=pdf.numPages;
+   await render(1);
+   return;
+  }catch(e){lastError=e;console.warn("Guide source failed:",src,e)}
+ }
+ status.innerHTML='Guide could not be loaded<br><small>'+((lastError&&lastError.message)||"PDF request failed")+'</small>';
+ console.error(lastError);
+}
+loadGuide();
 document.querySelector("#prevPage").onclick=()=>render(page-1);document.querySelector("#nextPage").onclick=()=>render(page+1);
 addEventListener("keydown",e=>{if(e.key==="ArrowLeft")render(page-1);if(e.key==="ArrowRight")render(page+1)});
 let resizeTimer;addEventListener("resize",()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(drawPage,120)});

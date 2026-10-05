@@ -1,46 +1,10 @@
 import * as pdfjsLib from "https://cdn.jsdelivr.net/npm/pdfjs-dist@6.3.289/build/pdf.mjs";
 pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdn.jsdelivr.net/npm/pdfjs-dist@6.3.289/build/pdf.worker.mjs";
-const chapters=[
-{p:1,l:"THE COVER",t:"A guide that belongs<br><em>to the hotel.</em>",b:"The guest sees the hotel first. Strictons sits quietly behind the experience, allowing each guide to feel like a considered extension of the property rather than a generic publication.",n:"Branding, tone, content and structure are customised for every hotel."},
-{p:2,l:"CONTENTS",t:"A stay made<br><em>easy to navigate.</em>",b:"The guide brings hotel information, dining, the neighbourhood and things to do into one simple pocket-sized format. Guests can understand what is available before they ever need to ask.",n:"Sections are selected and arranged around what is most useful for that hotel's guests."},
-{p:3,l:"WELCOME",t:"The essentials,<br><em>without the questions.</em>",b:"The welcome page puts the information guests need most in one place — check-out, WiFi, parking, breakfast, pool hours and room service. Useful from the moment the guide reaches their hands.",n:"The content, hierarchy and information are tailored to each property."},
-{p:4,l:"INSIDE THE HOTEL",t:"Keep more of the stay<br><em>inside the hotel.</em>",b:"Hotel restaurants, bars, room service and other amenities are given clear space in the guide, helping guests discover what is already available around them and driving more engagement with the hotel's own facilities.",n:"For Beachcomber, that means The Beachie Bar & Bistro and Pelicans. Another property would have an entirely different story."},
-{p:5,l:"THE LOCAL AREA",t:"Help guests make more<br><em>of where they are.</em>",b:"Selected local businesses give guests useful, curated ideas beyond the property. Richer editorial space provides enough context to decide where to eat, what to do and how to spend their time — not simply a list of names.",n:"Local recommendations are built around the hotel's location, guest profile and neighbourhood."},
-{p:8,l:"NEIGHBOURHOOD MAP",t:"A simple way to<br><em>ground the stay.</em>",b:"The map sits naturally in the middle of the guide, showing where the hotel and featured places sit in relation to one another. It gives guests an immediate sense of what is around them.",n:"Numbered locations correspond with the businesses and experiences featured throughout the guide. Digital scans can then take guests beyond the printed map to directions and actions during their stay."},
-{p:15,l:"KEYCARDS",t:"Part of the stay,<br><em>right to the end.</em>",b:"This Beachcomber sample includes integrated keycard storage at the back, keeping the guide physically useful throughout the stay. It can also create another hotel-owned space for a message or call to action.",n:"Keycards are optional. Like everything in a Strictons guide, this feature is customised to the individual hotel."}
-];
-let pdf=null,page=1,renderTask=null;
-const canvas=document.querySelector("#guideCanvas"),frame=document.querySelector("#pdfFrame"),status=document.querySelector("#pdfStatus"),pn=document.querySelector("#pageNow"),pt=document.querySelector("#pageTotal");
-function chapterFor(p){let best=0;chapters.forEach((c,i)=>{if(c.p<=p)best=i});return best}
-async function drawPage(){
- if(!pdf)return;
- if(renderTask){try{renderTask.cancel()}catch(e){}}
- const pg=await pdf.getPage(page),base=pg.getViewport({scale:1});
- const cssH=frame.clientHeight,cssW=frame.clientWidth,scale=Math.min(cssW/base.width,cssH/base.height);
- const viewport=pg.getViewport({scale}),dpr=Math.min(window.devicePixelRatio||1,2),ctx=canvas.getContext("2d");
- canvas.width=Math.floor(viewport.width*dpr);canvas.height=Math.floor(viewport.height*dpr);
- canvas.style.width=viewport.width+"px";canvas.style.height=viewport.height+"px";
- renderTask=pg.render({canvasContext:ctx,viewport,transform:dpr!==1?[dpr,0,0,dpr,0,0]:null});
- try{await renderTask.promise;status.classList.add("hidden")}catch(e){if(e?.name!=="RenderingCancelledException")throw e}
-}
-async function render(p){page=Math.max(1,Math.min(pdf?.numPages||16,p));const ci=chapterFor(page),c=chapters[ci];pn.textContent=page;document.querySelector("#chapterCount").textContent=String(ci+1).padStart(2,"0")+" / "+String(chapters.length).padStart(2,"0");document.querySelector("#chapterLabel").textContent=c.l;document.querySelector("#chapterTitle").innerHTML=c.t;document.querySelector("#chapterBody").textContent=c.b;document.querySelector("#customNote").textContent=c.n;await drawPage()}
-async function loadGuide(){
- const sources=["/Beachcomber.pdf","https://raw.githubusercontent.com/str1-ops/Strictons/main/Beachcomber.pdf"];
- let lastError;
- for(const src of sources){
-  try{
-   status.textContent="Loading guide…";
-   pdf=await pdfjsLib.getDocument({url:src}).promise;
-   pt.textContent=pdf.numPages;
-   await render(1);
-   return;
-  }catch(e){lastError=e;console.warn("Guide source failed:",src,e)}
- }
- status.innerHTML='Guide could not be loaded<br><small>'+((lastError&&lastError.message)||"PDF request failed")+'</small>';
- console.error(lastError);
-}
-loadGuide();
-document.querySelector("#prevPage").onclick=()=>render(page-1);document.querySelector("#nextPage").onclick=()=>render(page+1);
-addEventListener("keydown",e=>{if(e.key==="ArrowLeft")render(page-1);if(e.key==="ArrowRight")render(page+1)});
-let resizeTimer;addEventListener("resize",()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(drawPage,120)});
+let pdf=null,index=0,tasks=[];
+const spreads=[[1],[2,3],[4,5],[6,7],[8,9],[10,11],[12,13],[14,15],[16]];
+const wrap=document.querySelector("#spreadWrap"),left=document.querySelector("#leafLeft"),right=document.querySelector("#leafRight"),status=document.querySelector("#pdfStatus"),label=document.querySelector("#spreadLabel"),meta=document.querySelector("#pageNow");
+async function draw(num,canvas,leaf){if(!num){leaf.classList.add("hidden");return}leaf.classList.remove("hidden");const pg=await pdf.getPage(num),base=pg.getViewport({scale:1}),rect=leaf.getBoundingClientRect(),scale=Math.min(rect.width/base.width,rect.height/base.height),vp=pg.getViewport({scale}),dpr=Math.min(devicePixelRatio||1,2),ctx=canvas.getContext("2d");canvas.width=Math.floor(vp.width*dpr);canvas.height=Math.floor(vp.height*dpr);canvas.style.width=vp.width+"px";canvas.style.height=vp.height+"px";const task=pg.render({canvasContext:ctx,viewport:vp,transform:dpr!==1?[dpr,0,0,dpr,0,0]:null});tasks.push(task);try{await task.promise}catch(e){if(e?.name!=="RenderingCancelledException")throw e}}
+async function render(i){index=Math.max(0,Math.min(spreads.length-1,i));tasks.forEach(t=>{try{t.cancel()}catch(e){}});tasks=[];const s=spreads[index],single=s.length===1;wrap.classList.toggle("single-spread",single);if(single){left.classList.remove("hidden");right.classList.add("hidden");await draw(s[0],document.querySelector("#canvasLeft"),left)}else{await Promise.all([draw(s[0],document.querySelector("#canvasLeft"),left),draw(s[1],document.querySelector("#canvasRight"),right)])}meta.textContent=s.length===1?s[0]+" / "+pdf.numPages:s[0]+"–"+s[1]+" / "+pdf.numPages;label.textContent=index===0?"COVER":index===spreads.length-1?"BACK COVER":"OPEN GUIDE";status.classList.add("hidden")}
+async function load(){let err;for(const src of ["/Beachcomber.pdf","https://raw.githubusercontent.com/str1-ops/Strictons/main/Beachcomber.pdf"]){try{pdf=await pdfjsLib.getDocument({url:src}).promise;await render(0);return}catch(e){err=e}}status.textContent="Guide could not be loaded";console.error(err)}load();
+document.querySelector("#prevPage").onclick=()=>render(index-1);document.querySelector("#nextPage").onclick=()=>render(index+1);wrap.addEventListener("click",e=>{if(e.clientX<innerWidth/2)render(index-1);else render(index+1)});addEventListener("keydown",e=>{if(e.key==="ArrowLeft")render(index-1);if(e.key==="ArrowRight")render(index+1)});let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>pdf&&render(index),140)});
 const header=document.querySelector("#siteHeader"),openBtn=document.querySelector("#menuOpen"),overlay=document.querySelector("#menuOverlay");function setHeader(){header.classList.toggle("scrolled",scrollY>1)}addEventListener("scroll",setHeader,{passive:true});setHeader();function menu(open){if(open){overlay.classList.remove("closing");overlay.classList.add("open");overlay.setAttribute("aria-hidden","false");openBtn.setAttribute("aria-expanded","true");document.body.classList.add("menu-open")}else if(overlay.classList.contains("open")){overlay.classList.remove("open");overlay.classList.add("closing");overlay.setAttribute("aria-hidden","true");openBtn.setAttribute("aria-expanded","false");setTimeout(()=>{overlay.classList.remove("closing");document.body.classList.remove("menu-open")},300)}}openBtn.addEventListener("click",()=>menu(!overlay.classList.contains("open")));overlay.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>menu(false)));document.querySelector(".site-header .wordmark")?.addEventListener("click",()=>menu(false));addEventListener("keydown",e=>{if(e.key==="Escape")menu(false)});

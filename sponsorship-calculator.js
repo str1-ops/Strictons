@@ -31,13 +31,13 @@ document.querySelector('.site-header .wordmark')?.addEventListener('click',()=>m
 addEventListener('keydown',e=>{if(e.key==='Escape')menu(false)});
 
 const ids=[
-  'sponsorshipFee','dailyCheckins','guideUseRate',
+  'sponsorshipFee','dailyCheckins','guestsPerCheckin','guideUseRate',
   'conversionRate','averageSpend','grossMargin'
 ];
 const inputs=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)]));
 
 const outputIds=[
-  'annualCheckins','monthlyCost','costPerCheckin','funnelCheckins','funnelGuideUsers',
+  'annualGuests','monthlyCost','costPerGuest','funnelGuests','funnelGuideUsers',
   'funnelCustomers','breakEvenCustomers','breakEvenPace',
   'grossProfitPerCustomer','breakEvenMonthly','requiredConversion','modelCustomers',
   'modelRevenue','modelGrossProfit','customerAcquisitionCost','estimatedNetReturn','returnMultiple'
@@ -60,16 +60,18 @@ function percent(value){return Number.isFinite(value)?decimalFmt.format(value*10
 function update(){
   const fee=num(inputs.sponsorshipFee);
   const daily=num(inputs.dailyCheckins);
+  const guestsPerCheckin=num(inputs.guestsPerCheckin);
   const guideUse=pct(inputs.guideUseRate);
   const conversion=pct(inputs.conversionRate);
   const averageSpend=num(inputs.averageSpend);
   const grossMargin=pct(inputs.grossMargin);
 
   const annualCheckins=daily*365;
+  const annualGuests=annualCheckins*guestsPerCheckin;
   const monthlyCost=fee/12;
-  const costPerCheckin=annualCheckins>0?fee/annualCheckins:NaN;
+  const costPerGuest=annualGuests>0?fee/annualGuests:NaN;
 
-  const guideUsers=annualCheckins*guideUse;
+  const guideUsers=annualGuests*guideUse;
   const referredCustomers=guideUsers*conversion;
 
   const customerRevenue=referredCustomers*averageSpend;
@@ -84,11 +86,11 @@ function update(){
   const requiredConversion=guideUsers>0&&Number.isFinite(breakEvenCustomers)?breakEvenCustomers/guideUsers:NaN;
   const breakEvenDays=Number.isFinite(breakEvenCustomers)&&breakEvenCustomers>0?365/breakEvenCustomers:NaN;
 
-  set('annualCheckins',int(annualCheckins));
+  set('annualGuests',int(annualGuests));
   set('monthlyCost',money(monthlyCost));
-  set('costPerCheckin',annualCheckins>0?ratioMoney(costPerCheckin):'—');
+  set('costPerGuest',annualGuests>0?ratioMoney(costPerGuest):'—');
 
-  set('funnelCheckins',int(annualCheckins));
+  set('funnelGuests',int(annualGuests));
   set('funnelGuideUsers',int(guideUsers));
   set('funnelCustomers',int(referredCustomers));
 

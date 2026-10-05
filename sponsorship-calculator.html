@@ -95,9 +95,6 @@
               <div>
                 <span class="metric-label">Conversion rate</span>
                 <strong id="conversionDisplay">0%</strong>
-                <div class="conversion-context">
-                  <span id="perThousandDisplay">0 in every 1,000 hotel guests</span>
-                </div>
               </div>
             </div>
 
@@ -107,19 +104,24 @@
                 class="conversion-slider"
                 type="range"
                 min="0"
-                max="4"
+                max="5"
                 step="1"
                 value="0"
                 aria-label="Percentage of annual hotel guests converted into customers"
               >
               <div class="slider-scale" aria-hidden="true">
                 <span>0%</span>
+                <span>0.5%</span>
                 <span>1%</span>
                 <span>1.5%</span>
                 <span>2%</span>
                 <span>2.5%</span>
               </div>
             </div>
+          </div>
+
+          <div class="conversion-bridge">
+            <strong id="perHundredDisplay">0 in every 100 hotel guests</strong>
           </div>
 
           <div class="door-result">

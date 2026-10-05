@@ -30,93 +30,57 @@ overlay?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu(fa
 document.querySelector('.site-header .wordmark')?.addEventListener('click',()=>menu(false));
 addEventListener('keydown',e=>{if(e.key==='Escape')menu(false)});
 
-const ids=[
-  'sponsorshipFee','dailyCheckins','guestsPerCheckin','guideUseRate',
-  'conversionRate','averageSpend','grossMargin'
-];
-const inputs=Object.fromEntries(ids.map(id=>[id,document.getElementById(id)]));
+const sponsorshipFee=document.getElementById('sponsorshipFee');
+const dailyCheckins=document.getElementById('dailyCheckins');
+const guestsPerCheckin=document.getElementById('guestsPerCheckin');
+const conversionSlider=document.getElementById('conversionSlider');
 
-const outputIds=[
-  'annualGuests','dailyCost','costPerGuest','funnelGuests','funnelGuideUsers',
-  'funnelCustomers','breakEvenCustomers','breakEvenPace',
-  'grossProfitPerCustomer','breakEvenMonthly','requiredConversion','modelCustomers',
-  'modelRevenue','modelGrossProfit','customerAcquisitionCost','estimatedNetReturn','returnMultiple'
-];
-const outputs=Object.fromEntries(outputIds.map(id=>[id,document.getElementById(id)]));
+const annualGuests=document.getElementById('annualGuests');
+const dailyCost=document.getElementById('dailyCost');
+const costPerGuest=document.getElementById('costPerGuest');
+const conversionDisplay=document.getElementById('conversionDisplay');
+const doorCustomers=document.getElementById('doorCustomers');
+const monthlyDoorCustomers=document.getElementById('monthlyDoorCustomers');
 
 const numberFmt=new Intl.NumberFormat('en-AU',{maximumFractionDigits:0});
 const decimalFmt=new Intl.NumberFormat('en-AU',{minimumFractionDigits:1,maximumFractionDigits:1});
-const currencyFmt=new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD',maximumFractionDigits:0});
 const currency2Fmt=new Intl.NumberFormat('en-AU',{style:'currency',currency:'AUD',minimumFractionDigits:2,maximumFractionDigits:2});
 
 function num(input){return Math.max(0,Number(input?.value)||0)}
-function pct(input){return Math.min(100,num(input))/100}
-function set(id,value){if(outputs[id])outputs[id].textContent=value}
-function money(value){return Number.isFinite(value)?currencyFmt.format(value):'—'}
-function ratioMoney(value){return Number.isFinite(value)?currency2Fmt.format(value):'—'}
-function int(value){return Number.isFinite(value)?numberFmt.format(Math.round(value)):'—'}
-function percent(value){return Number.isFinite(value)?decimalFmt.format(value*100)+'%':'—'}
+function formatPercent(value){return value.toFixed(2)+'%'}
 
 function update(){
-  const fee=num(inputs.sponsorshipFee);
-  const daily=num(inputs.dailyCheckins);
-  const guestsPerCheckin=num(inputs.guestsPerCheckin);
-  const guideUse=pct(inputs.guideUseRate);
-  const conversion=pct(inputs.conversionRate);
-  const averageSpend=num(inputs.averageSpend);
-  const grossMargin=pct(inputs.grossMargin);
+  const fee=num(sponsorshipFee);
+  const checkins=num(dailyCheckins);
+  const guests=num(guestsPerCheckin);
+  const conversion=Math.min(5,Math.max(.25,Number(conversionSlider?.value)||5));
 
-  const annualCheckins=daily*365;
-  const annualGuests=annualCheckins*guestsPerCheckin;
-  const dailyCost=fee/365;
-  const costPerGuest=annualGuests>0?fee/annualGuests:NaN;
+  const annualGuestCount=checkins*guests*365;
+  const dailySponsorship=fee/365;
+  const perGuest=annualGuestCount>0?fee/annualGuestCount:NaN;
+  const convertedCustomers=annualGuestCount*(conversion/100);
+  const monthlyCustomers=convertedCustomers/12;
 
-  const guideUsers=annualGuests*guideUse;
-  const referredCustomers=guideUsers*conversion;
+  annualGuests.textContent=numberFmt.format(Math.round(annualGuestCount));
+  dailyCost.textContent=currency2Fmt.format(dailySponsorship);
+  costPerGuest.textContent=Number.isFinite(perGuest)?currency2Fmt.format(perGuest):'—';
+  conversionDisplay.textContent=formatPercent(conversion);
+  doorCustomers.textContent=numberFmt.format(Math.round(convertedCustomers));
+  monthlyDoorCustomers.textContent=decimalFmt.format(monthlyCustomers);
 
-  const customerRevenue=referredCustomers*averageSpend;
-  const grossProfitPerCustomer=averageSpend*grossMargin;
-  const grossProfitGenerated=referredCustomers*grossProfitPerCustomer;
-  const customerAcquisitionCost=referredCustomers>0?fee/referredCustomers:NaN;
-  const netReturn=grossProfitGenerated-fee;
-  const returnMultiple=fee>0?grossProfitGenerated/fee:NaN;
-
-  const breakEvenCustomers=grossProfitPerCustomer>0?fee/grossProfitPerCustomer:NaN;
-  const breakEvenMonthly=Number.isFinite(breakEvenCustomers)?breakEvenCustomers/12:NaN;
-  const requiredConversion=guideUsers>0&&Number.isFinite(breakEvenCustomers)?breakEvenCustomers/guideUsers:NaN;
-  const breakEvenDays=Number.isFinite(breakEvenCustomers)&&breakEvenCustomers>0?365/breakEvenCustomers:NaN;
-
-  set('annualGuests',int(annualGuests));
-  set('dailyCost',ratioMoney(dailyCost));
-  set('costPerGuest',annualGuests>0?ratioMoney(costPerGuest):'—');
-
-  set('funnelGuests',int(annualGuests));
-  set('funnelGuideUsers',int(guideUsers));
-  set('funnelCustomers',int(referredCustomers));
-
-  set('grossProfitPerCustomer',grossProfitPerCustomer>0?money(grossProfitPerCustomer):'—');
-  set('breakEvenCustomers',Number.isFinite(breakEvenCustomers)?decimalFmt.format(breakEvenCustomers):'—');
-  set('breakEvenMonthly',Number.isFinite(breakEvenMonthly)?decimalFmt.format(breakEvenMonthly):'—');
-  set('requiredConversion',Number.isFinite(requiredConversion)?percent(requiredConversion):'—');
-
-  if(Number.isFinite(breakEvenDays)){
-    set('breakEvenPace','Equivalent to about one incremental customer every '+decimalFmt.format(breakEvenDays)+' days.');
-  }else{
-    set('breakEvenPace','Enter average spend and gross margin to calculate.');
-  }
-
-  set('modelCustomers',int(referredCustomers));
-  set('modelRevenue',money(customerRevenue));
-  set('modelGrossProfit',money(grossProfitGenerated));
-  set('customerAcquisitionCost',referredCustomers>0?money(customerAcquisitionCost):'—');
-  set('estimatedNetReturn',money(netReturn));
-  set('returnMultiple',Number.isFinite(returnMultiple)?decimalFmt.format(returnMultiple)+'×':'—');
+  const progress=((conversion-.25)/(5-.25))*100;
+  conversionSlider?.style.setProperty('--slider-progress',progress+'%');
 }
 
-Object.values(inputs).forEach(input=>input?.addEventListener('input',update));
+[sponsorshipFee,dailyCheckins,guestsPerCheckin,conversionSlider].forEach(input=>input?.addEventListener('input',update));
+
 document.getElementById('resetCalculator')?.addEventListener('click',()=>{
-  Object.values(inputs).forEach(input=>{if(input)input.value='0'});
+  if(sponsorshipFee)sponsorshipFee.value='0';
+  if(dailyCheckins)dailyCheckins.value='0';
+  if(guestsPerCheckin)guestsPerCheckin.value='0';
+  if(conversionSlider)conversionSlider.value='5';
   update();
 });
+
 document.getElementById('printCalculator')?.addEventListener('click',()=>window.print());
 update();

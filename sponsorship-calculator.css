@@ -303,21 +303,17 @@ html{scroll-behavior:smooth}
   flex-direction:column;
   justify-content:center;
 }
-.door-result .metric-label{color:rgba(255,244,232,.72)}
+.door-result h3{
+  margin:0;
+  color:#fff4e8;
+  font:500 clamp(20px,1.6vw,28px)/1.05 "Red Hat Display",Arial,sans-serif;
+  letter-spacing:-.025em;
+}
 .door-result strong{
   display:block;
   margin:18px 0 11px;
   font:400 clamp(72px,7vw,118px)/.8 "Libre Caslon Display",Georgia,serif;
   letter-spacing:-.06em;
-}
-.door-result p{
-  max-width:210px;
-  margin:12px 0 0;
-  padding-top:14px;
-  border-top:1px solid rgba(255,244,232,.34);
-  color:rgba(255,244,232,.82);
-  font-size:11px;
-  line-height:1.45;
 }
 .funnel-note{
   display:flex;

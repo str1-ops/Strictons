@@ -239,10 +239,7 @@ html{scroll-behavior:smooth}
   justify-content:space-between;
 }
 .conversion-topline{
-  display:grid;
-  grid-template-columns:auto minmax(220px,340px);
-  justify-content:space-between;
-  gap:32px;
+  display:block;
 }
 .conversion-topline strong{
   display:block;
@@ -250,13 +247,6 @@ html{scroll-behavior:smooth}
   font:400 clamp(54px,5vw,88px)/.9 "Libre Caslon Display",Georgia,serif;
   letter-spacing:-.055em;
   color:var(--calc-rust-deep);
-}
-.conversion-topline p{
-  margin:0;
-  color:var(--calc-muted);
-  font-size:12px;
-  line-height:1.5;
-  align-self:end;
 }
 .slider-wrap{padding-top:56px}
 .conversion-slider{
@@ -384,8 +374,6 @@ html{scroll-behavior:smooth}
   .headline-metrics article:first-child{border-top:0}
   .headline-metrics strong{margin-top:18px}
   .funnel-section{padding-top:50px}
-  .conversion-topline{grid-template-columns:1fr}
-  .conversion-topline p{max-width:300px}
   .conversion-control{padding:24px 0 28px}
   .slider-wrap{padding-top:42px}
   .slider-scale span:nth-child(2),.slider-scale span:nth-child(4){display:none}

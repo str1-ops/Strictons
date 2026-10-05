@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<meta name="googlebot" content="noindex,nofollow,noarchive,nosnippet">
+<meta name="description" content="Private Strictons sponsorship value calculator.">
+<title>Sponsorship Value Calculator | Strictons</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@0;1&family=Red+Hat+Display:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/sponsorship-calculator.css">
+</head>
+<body class="sponsor-calc-page">
+<header class="site-header" id="siteHeader">
+  <a class="wordmark" href="/"><strong>STRICTONS</strong><span>SIGNATURE HOTEL GUIDES</span></a>
+  <button class="menu-trigger" id="menuOpen" aria-controls="menuOverlay" aria-expanded="false">Menu.</button>
+</header>
+
+<div class="menu-overlay" id="menuOverlay" aria-hidden="true">
+  <nav class="overlay-links" aria-label="Menu">
+    <a href="/why">Why</a><a href="/how-it-works">How It Works</a><a href="/for-business">For Business</a><a href="/digital-guides">Digital Guides</a><a href="/faq">FAQ</a><a href="/contact">Contact</a>
+  </nav>
+</div>
+
+<main class="calculator-main">
+  <section class="calculator-hero">
+    <p class="kicker">FOR LOCAL BUSINESS PARTNERS</p>
+    <div class="hero-grid">
+      <h1>What does a hotel<br>sponsorship need to <em>deliver?</em></h1>
+      <div class="hero-copy">
+        <p>Enter the sponsorship fee and the hotel's average daily check-ins. Then add your own business economics to see what the partnership would need to generate to make commercial sense.</p>
+        <p class="hero-note">No inflated impression promises. Just transparent assumptions and useful numbers.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="calculator-workspace">
+    <aside class="inputs-panel">
+      <div class="panel-heading">
+        <p>YOUR INPUTS</p>
+        <button type="button" id="resetCalculator">Reset</button>
+      </div>
+
+      <div class="input-group">
+        <h2>The partnership</h2>
+        <label>
+          <span>Sponsorship fee <small>AUD / 12 months</small></span>
+          <div class="money-input"><b>$</b><input id="sponsorshipFee" type="number" min="0" step="50" value="0" inputmode="decimal"></div>
+        </label>
+        <label>
+          <span>Average hotel check-ins <small>per day</small></span>
+          <input id="dailyCheckins" type="number" min="0" step="1" value="0" inputmode="numeric">
+        </label>
+      </div>
+
+      <div class="input-group secondary-inputs">
+        <h2>Audience assumptions</h2>
+        <p class="group-note">Use conservative estimates. These are modelling assumptions, not guaranteed results.</p>
+        <label>
+          <span>Guests who use the guide <small>% of check-ins</small></span>
+          <div class="percent-input"><input id="guideUseRate" type="number" min="0" max="100" step="0.1" value="0" inputmode="decimal"><b>%</b></div>
+        </label>
+        <label>
+          <span>Guide users who reach Local Finds <small>%</small></span>
+          <div class="percent-input"><input id="sectionReachRate" type="number" min="0" max="100" step="0.1" value="0" inputmode="decimal"><b>%</b></div>
+        </label>
+        <label>
+          <span>Local Finds audience who visit you <small>%</small></span>
+          <div class="percent-input"><input id="conversionRate" type="number" min="0" max="100" step="0.1" value="0" inputmode="decimal"><b>%</b></div>
+        </label>
+      </div>
+
+      <div class="input-group secondary-inputs">
+        <h2>Your business economics</h2>
+        <label>
+          <span>Average customer spend <small>per referred visit / booking</small></span>
+          <div class="money-input"><b>$</b><input id="averageSpend" type="number" min="0" step="1" value="0" inputmode="decimal"></div>
+        </label>
+        <label>
+          <span>Gross margin <small>after direct cost of sale</small></span>
+          <div class="percent-input"><input id="grossMargin" type="number" min="0" max="100" step="0.1" value="0" inputmode="decimal"><b>%</b></div>
+        </label>
+      </div>
+
+      <button class="print-button" type="button" id="printCalculator">Print / Save summary <span>↗</span></button>
+    </aside>
+
+    <div class="results-panel">
+      <div class="results-intro">
+        <p>THE HOTEL AUDIENCE</p>
+        <h2>Your potential guest opportunity.</h2>
+        <span>Based only on the figures entered at left.</span>
+      </div>
+
+      <div class="headline-metrics">
+        <article>
+          <span>Annual hotel check-ins</span>
+          <strong id="annualCheckins">0</strong>
+          <small>daily check-ins × 365</small>
+        </article>
+        <article>
+          <span>Sponsorship / month</span>
+          <strong id="monthlyCost">$0</strong>
+          <small>annual fee ÷ 12</small>
+        </article>
+        <article>
+          <span>Cost / potential check-in</span>
+          <strong id="costPerCheckin">—</strong>
+          <small>before engagement assumptions</small>
+        </article>
+      </div>
+
+      <section class="funnel-section">
+        <div class="section-title-row">
+          <div>
+            <p>AUDIENCE FUNNEL</p>
+            <h2>From hotel arrival to your door.</h2>
+          </div>
+          <span>Illustrative scenario</span>
+        </div>
+
+        <div class="funnel">
+          <article class="funnel-step step-1">
+            <div><span>01</span><strong id="funnelCheckins">0</strong></div>
+            <p>Annual hotel check-ins</p>
+          </article>
+          <article class="funnel-step step-2">
+            <div><span>02</span><strong id="funnelGuideUsers">0</strong></div>
+            <p>Estimated guide users</p>
+          </article>
+          <article class="funnel-step step-3">
+            <div><span>03</span><strong id="funnelSectionReach">0</strong></div>
+            <p>Estimated Local Finds audience</p>
+          </article>
+          <article class="funnel-step step-4">
+            <div><span>04</span><strong id="funnelCustomers">0</strong></div>
+            <p>Estimated referred visits / bookings</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="break-even-section">
+        <div class="section-title-row">
+          <div>
+            <p>BREAK-EVEN VIEW</p>
+            <h2>What would this need to generate?</h2>
+          </div>
+          <span>Uses your spend + margin</span>
+        </div>
+
+        <div class="break-even-grid">
+          <article class="break-even-hero">
+            <span>Customers needed to recover the sponsorship</span>
+            <strong id="breakEvenCustomers">—</strong>
+            <p id="breakEvenPace">Enter average spend and gross margin to calculate.</p>
+          </article>
+          <article>
+            <span>Gross profit / referred customer</span>
+            <strong id="grossProfitPerCustomer">—</strong>
+          </article>
+          <article>
+            <span>Break-even customers / month</span>
+            <strong id="breakEvenMonthly">—</strong>
+          </article>
+          <article>
+            <span>Required conversion from Local Finds audience</span>
+            <strong id="requiredConversion">—</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="commercial-section">
+        <div class="section-title-row">
+          <div>
+            <p>MODELLED OUTCOME</p>
+            <h2>If the assumptions hold.</h2>
+          </div>
+          <span>No guarantee of performance</span>
+        </div>
+
+        <div class="commercial-grid">
+          <article>
+            <span>Estimated referred customers / year</span>
+            <strong id="modelCustomers">0</strong>
+          </article>
+          <article>
+            <span>Estimated customer revenue</span>
+            <strong id="modelRevenue">$0</strong>
+          </article>
+          <article>
+            <span>Estimated gross profit generated</span>
+            <strong id="modelGrossProfit">$0</strong>
+          </article>
+          <article>
+            <span>Estimated cost / referred customer</span>
+            <strong id="customerAcquisitionCost">—</strong>
+          </article>
+        </div>
+
+        <div class="roi-card">
+          <div>
+            <p>ESTIMATED RETURN AFTER SPONSORSHIP COST</p>
+            <strong id="estimatedNetReturn">$0</strong>
+          </div>
+          <div>
+            <p>GROSS-PROFIT RETURN ON SPEND</p>
+            <strong id="returnMultiple">—</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="explain-section">
+        <p>HOW TO READ THIS</p>
+        <div class="explain-grid">
+          <article><span>01</span><h3>Potential audience is not an impression.</h3><p>A check-in is simply an opportunity for the guide to reach a guest. The calculator deliberately separates hotel arrivals from guide use, section reach and actual visits.</p></article>
+          <article><span>02</span><h3>Break-even matters more than reach.</h3><p>If your average referred customer contributes meaningful gross profit, only a small number of incremental customers may be needed for the sponsorship to pay for itself.</p></article>
+          <article><span>03</span><h3>Use conservative assumptions.</h3><p>Until live tracking exists, keep guide-use and conversion assumptions modest. Real QR, click and offer-redemption data can replace assumptions over time.</p></article>
+        </div>
+      </section>
+
+      <div class="calculator-disclaimer">
+        <p><strong>Important:</strong> This calculator is an illustrative planning tool. Hotel check-ins are not guaranteed impressions, and audience, conversion, customer spend and margin figures are user-entered assumptions. Strictons does not guarantee any number of visits, bookings, revenue or profit from a sponsorship.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="black-stage sponsor-site-footer">
+  <div class="rule"></div>
+  <nav class="footer-nav" aria-label="Site navigation">
+    <a href="/why">Why</a><a href="/how-it-works">How It Works</a><a href="/for-business">For Business</a><a href="/digital-guides">Digital Guides</a><a href="/faq">FAQ</a><a href="/contact">Contact</a>
+  </nav>
+  <div class="bottom-brand wordmark"><strong>STRICTONS</strong><span>SIGNATURE HOTEL GUIDES</span></div>
+  <div class="rule bottom-rule"></div>
+  <footer><span>© 2026 Strictons</span><div><a href="/privacy">Privacy Policy</a><a href="/terms">Terms &amp; Conditions</a></div></footer>
+</section>
+
+<script src="/sponsorship-calculator.js"></script>
+</body>
+</html>

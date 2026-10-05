@@ -74,9 +74,8 @@ function animateDoorCustomers(target){
     return;
   }
 
-  const distance=Math.abs(target-displayedDoorCustomers);
-  const delay=Math.max(4,Math.min(18,Math.round(900/distance)));
   const direction=target>displayedDoorCustomers?1:-1;
+  const delay=1;
 
   doorAnimationTimer=setInterval(()=>{
     displayedDoorCustomers+=direction;

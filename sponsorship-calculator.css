@@ -226,7 +226,7 @@ html{scroll-behavior:smooth}
 
 .conversion-card{
   display:grid;
-  grid-template-columns:minmax(0,1.45fr) minmax(270px,.55fr);
+  grid-template-columns:minmax(0,1.1fr) minmax(190px,.62fr) minmax(270px,.72fr);
   min-height:310px;
   border-top:1px solid var(--calc-ink);
   border-bottom:1px solid var(--calc-line);
@@ -247,15 +247,6 @@ html{scroll-behavior:smooth}
   font:400 clamp(54px,5vw,88px)/.9 "Libre Caslon Display",Georgia,serif;
   letter-spacing:-.055em;
   color:var(--calc-rust-deep);
-}
-.conversion-context{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px 18px;
-  margin-top:17px;
-  color:var(--calc-muted);
-  font-size:11px;
-  line-height:1.4;
 }
 .slider-wrap{padding-top:44px}
 .conversion-slider{
@@ -287,6 +278,22 @@ html{scroll-behavior:smooth}
   border:6px solid var(--calc-cream);
   background:var(--calc-rust);
   box-shadow:0 0 0 1px var(--calc-rust);
+}
+.conversion-bridge{
+  min-height:310px;
+  padding:30px 26px;
+  border-right:1px solid var(--calc-line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.conversion-bridge strong{
+  display:block;
+  max-width:230px;
+  color:var(--calc-ink);
+  font:400 clamp(27px,2.25vw,38px)/1.04 "Libre Caslon Display",Georgia,serif;
+  letter-spacing:-.035em;
 }
 .slider-scale{
   display:flex;
@@ -366,6 +373,8 @@ html{scroll-behavior:smooth}
   .calculator-workspace{grid-template-columns:350px minmax(0,1fr)}
   .conversion-card{grid-template-columns:1fr}
   .conversion-control{border-right:0;border-bottom:1px solid var(--calc-line);padding-right:0}
+  .conversion-bridge{min-height:150px;border-right:0;border-bottom:1px solid var(--calc-line);padding:30px 28px}
+  .conversion-bridge strong{max-width:420px}
   .door-result{min-height:260px;padding:30px 28px 26px}
 }
 
@@ -405,7 +414,8 @@ html{scroll-behavior:smooth}
   .funnel-section{padding-top:50px}
   .conversion-control{padding:24px 0 28px}
   .slider-wrap{padding-top:42px}
-  .slider-scale span:nth-child(2),.slider-scale span:nth-child(4){display:none}
+  .conversion-bridge{min-height:130px;padding:26px 18px}
+  .conversion-bridge strong{font-size:30px}
   .door-result{min-height:240px;padding:28px 22px 24px}
   .door-result::before{inset:10px}
   .door-result h3{font-size:32px}

@@ -33,6 +33,30 @@
     {
       "source": "/terms",
       "destination": "/terms.html"
+    },
+    {
+      "source": "/sponsorship-calculator",
+      "destination": "/sponsorship-calculator.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/sponsorship-calculator",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive, nosnippet"
+        }
+      ]
+    },
+    {
+      "source": "/sponsorship-calculator.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive, nosnippet"
+        }
+      ]
     }
   ]
 }

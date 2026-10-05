@@ -329,12 +329,6 @@ html{scroll-behavior:smooth}
   letter-spacing:-.02em;
   text-align:center;
 }
-.door-result h3 em{
-  font:inherit;
-  text-decoration:underline;
-  text-decoration-thickness:2px;
-  text-underline-offset:8px;
-}
 .door-result h3::after{content:none}
 .door-result strong{
   position:relative;

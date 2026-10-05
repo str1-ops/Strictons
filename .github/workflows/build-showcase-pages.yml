@@ -1,0 +1,27 @@
+name: Build showcase pages
+on:
+  push:
+    paths:
+      - Beachcomber.pdf
+      - showcase-render-trigger.txt
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+          mkdir -p assets/showcase
+          rm -f assets/showcase/page-*.jpg
+          pdftoppm -jpeg -r 120 -jpegopt quality=86,progressive=y,optimize=y Beachcomber.pdf assets/showcase/raw
+          i=1
+          for f in assets/showcase/raw-*.jpg; do printf -v n "%02d" "$i"; mv "$f" "assets/showcase/page-$n.jpg"; i=$((i+1)); done
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/showcase
+          git diff --cached --quiet || git commit -m "Add optimized showcase page assets"
+          git push

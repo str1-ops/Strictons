@@ -19,10 +19,6 @@
       "destination": "/for-business.html"
     },
     {
-      "source": "/digital-guides",
-      "destination": "/digital-guides.html"
-    },
-    {
       "source": "/contact",
       "destination": "/contact.html"
     },
@@ -57,6 +53,18 @@
           "value": "noindex, nofollow, noarchive, nosnippet"
         }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/digital-guides",
+      "destination": "/how-it-works",
+      "permanent": true
+    },
+    {
+      "source": "/digital-guides.html",
+      "destination": "/how-it-works",
+      "permanent": true
     }
   ]
 }
